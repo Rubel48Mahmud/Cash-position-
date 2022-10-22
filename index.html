@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<meta charset="UTF-8">
+
+
+<style type="text/css">
+*{margin:0;
+padding:0;
+box-sizing:border-box}
+
+body{text-align:center;
+margin-top:50px;
+background:#dff8e5}
+
+h1{
+font-size:60px;
+text-shadow:2px 2px 3px silver
+
+}
+
+table{
+margin:50px 45px;
+width:90%;
+height:190px
+
+
+}
+
+
+
+.label_text{
+font-size:35px;
+font-weight:bold
+
+}
+.label_colon{
+font-size:50px
+
+}
+
+
+.input{
+text-align:center;
+font-weight:bold;
+width:250px;
+height:80px;
+border:1px solid black;
+font-size:35px;
+border-radius:4px;
+outline:none
+}
+.input:hover{
+box-shadow:4px 4px 4px #7FFFD4,-4px -4px 4px #7FFFD4;
+
+}
+
+
+td{padding:10px 0px}
+
+
+button{
+width:180px;
+height:70px;
+font-size:35px;
+font-weight:bold;
+padding:8px;
+margin-left:8px;
+border:1px solid black;
+border-radius:10px
+
+}
+
+#calculate{
+background:#007f61;
+color:white
+
+
+}
+
+#calculate:active{
+background-color: #3e8e41;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px)
+
+}
+
+#reset{
+background:red;
+color:white
+
+
+}
+#reset:active{
+
+background-color: pink;
+color:#000;
+  box-shadow: 0 5px #666;
+  transform: translateY(4px)
+}
+
+
+#label_result{
+font-size:38px;
+font-weight:bold;
+color:green
+
+}
+
+.result{
+width:270px;
+height:90px;
+border:2px solid black;
+border-radius:5px;
+font-size:43px;
+text-align:center;
+margin-top:70px;
+font-weight:bold;
+color:black
+}
+
+
+#alert{
+color:red;
+padding:10px;
+font-size:30px;
+visibility:hidden
+
+}
+
+#alert2{
+
+font-size:35px;
+padding:10px;
+background:#FF1493;
+color:#fff;
+border-radius:5px;
+font-weight:bold;
+visibility:hidden;
+
+}
+
+#check{
+margin-top:80px;
+outline:none;
+color:#000;
+background:#7FFFD4;
+padding:5px;
+border-radius:5px;
+width:180px
+
+
+}
+
+#check:active{
+
+background:#6495ED;
+
+}
+
+
+
+
+</style>
+</head>
+<body>
+
+<h1>দৈনিক ক্যাশ হিসাব</h1>
+<span id="alert">All field is required...!</span><br><br>
+<span id="alert2"></span>
+<table>
+
+<tr>
+<td><label class="label_text" for="previous_amount">গত কালকের হাতে ক্যাশ </label></td>
+<td class="label_colon">:</td>
+<td><input class="input" type="number" id="previous_amount"></td>
+</tr>
+
+<tr>
+<td><label class="label_text" for="deposit">আজকের জমা </label></td>
+<td class="label_colon">:</td>
+<td><input class="input" type="number" id="deposit"></td>
+</tr>
+
+
+<tr>
+<td><label class="label_text" for="withdrow">আজকের উত্তলন </label></td>
+<td class="label_colon">:</td>
+<td><input class="input" type="number" id="withdrow"></td>
+</tr>
+
+
+<tr>
+<td><label class="label_text" for="others_deposit">অন্যান্য জমা </label></td>
+<td class="label_colon">:</td>
+<td><input class="input" type="number" id="others_deposit"></td>
+</tr>
+
+
+<tr>
+<td><label class="label_text" for="due">আজকের বকেয়া </label></td>
+<td class="label_colon">:</td>
+<td><input class="input" type="number" id="due"></td>
+</tr>
+
+
+<tr>
+<td><label class="label_text" for="cash">আজকে ক্যাশ আছে </label></td>
+<td class="label_colon">:</td>
+<td><input class="input" type="number" id="cash"></td>
+</tr>
+
+
+</table>
+
+<button id="calculate" onclick="calculate()">Calculate</button>
+<button id="reset" onclick="reset()">Clear</button>
+<br>
+<label id="label_result">আজকের ক্যাশ থাকবে :</label>
+<input class="result" id="result" type="text" disabled>	<br>
+
+<button id="check" onclick="check()">Check 🔁</button>
+
+
+
+
+
+<script type="text/javascript">
+
+
+
+function calculate(){
+var alert = document.getElementById("alert");
+var previous_amount = parseInt(document.getElementById("previous_amount").value);
+var deposit = parseInt(document.getElementById("deposit").value);
+var withdrow = parseInt(document.getElementById("withdrow").value);
+var others_deposit = parseInt(document.getElementById("others_deposit").value);
+var due = parseInt(document.getElementById("due").value);
+var result = document.getElementById("result");
+var cash = parseInt(document.getElementById("cash").value);
+
+if(!previous_amount || !deposit || !withdrow || !others_deposit || !due  || !cash){
+alert.innerHTML="All field are required...!";
+alert.style.visibility='visible'
+
+}
+
+
+
+else{
+alert.style.visibility='hidden';
+var total_deposit =parseInt(previous_amount+ deposit+others_deposit);
+var total_withdrow = parseInt(withdrow + due);
+var final_result=total_deposit-total_withdrow;
+result.value= final_result+"/=";
+
+
+
+}
+
+
+
+
+
+}
+
+
+function reset(){
+var alert = document.getElementById("alert");
+var alert2 = document.getElementById("alert2");
+var previous_amount = document.getElementById("previous_amount");
+var deposit = document.getElementById("deposit");
+var withdrow = document.getElementById("withdrow");
+var others_deposit = document.getElementById("others_deposit");
+var due = document.getElementById("due");
+var result = document.getElementById("result");
+var cash = document.getElementById("cash");
+
+if(!previous_amount.value && !deposit.value && !withdrow.value && !others_deposit.value && !due.value && !result.value  && !cash.value){
+
+alert.innerHTML="All field are empty...!";
+alert.style.visibility='visible';
+
+
+}
+
+else{
+alert.style.visibility='hidden';
+previous_amount.value="";
+deposit.value="";
+withdrow.value="";
+others_deposit.value="";
+due.value="";
+result.value="";
+cash.value="";
+alert2.style.visibility="hidden"
+}
+
+
+}
+
+
+
+
+
+function check(){
+var alert2 = document.getElementById("alert2");
+var cash = parseInt(document.getElementById("cash").value);
+var rubel = parseInt(result.value);
+
+
+if(cash<rubel){
+var kom = rubel - cash;
+
+alert2.style.visibility="visible";
+
+alert2.innerHTML="ক্যাশ কম "+ kom +" TK 🤒.";
+
+}
+
+else if(!cash  || !rubel){
+
+alert2.style.visibility="visible";
+alert2.innerHTML="No checking...! ❌"
+
+}
+
+
+else if(cash==rubel){
+
+alert2.style.visibility="visible";
+alert2.innerHTML="আপনার ক্যাশ পজিশন ঠিক আছে 🥰৷ "
+
+}
+
+
+else{
+
+var beshi = cash-rubel;
+alert2.style.visibility="visible";
+alert2.innerHTML="ক্যাশ বেশি "+ beshi + " TK 🙄."
+
+
+}
+
+
+}
+
+
+</script>
+</body>
+</html>
